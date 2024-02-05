@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    username: root
+    password: detector
+    url: jdbc:postgresql://localhost:5431/antipatternDetector
+  jpa:
+    show-sql: false
+    generate-ddl: true
+    properties:
+      hibernate:
+        ddl-auto: create
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation: true

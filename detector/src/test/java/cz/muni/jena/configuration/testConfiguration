@@ -1,0 +1,73 @@
+{
+    "diConfiguration" : {
+            "injectionAnnotations":[
+               {
+                  "fullyQualifiedName":"b.cd"
+               },
+               {
+                  "fullyQualifiedName":"1.2",
+                  "coupledToFramework" : true
+               }
+            ],
+            "maxNumberOfInjections":10,
+            "maxProducerMethodComplexity":6,
+            "producerAnnotations":[
+                  {
+                     "fullyQualifiedName":"e.gfg"
+                  },
+                  {
+                     "fullyQualifiedName":"5.6"
+                  }
+               ],
+            "directContainerCallMethods":[
+                     "abcd"
+            ]
+         },
+    "mockingConfiguration" : {
+        "exceptions" : [
+            "java.io.IOException"
+        ],
+        "mockingMethods" : [
+            {
+                "fullyQualifiedName" : "efd",
+                "argumentType" : "CLASS",
+                "argumentHasToBeFinal" : true
+            }
+        ]
+    },
+    "securityConfiguration" : {
+        "sensitiveInformationRegex" : "user",
+        "configurationFileRegex" : "app",
+        "tokenLifetimeSettings" : {
+            "maxTokenLifetime" : 1,
+            "unit" : "SECONDS"
+        },
+        "encryptionAlgorithms" : [
+            {
+                "name" : "name",
+                "defaultStrength" : 2,
+                "strengthRequired" : 5
+            }
+        ],
+        "jwtSigningMethods": [
+            "abc"
+        ],
+        "unsecureCommunicationRegexes" : [
+            "http"
+        ]
+    },
+    "serviceLayerConfiguration" : {
+        "minServiceMethods" : 1,
+        "maxServiceMethods" : 2,
+        "serviceAnnotations" : [
+            "dfe"
+        ]
+    },
+    "persistenceConfiguration" : {
+        "nPlusOneQueryRegex" : "nPlusOne",
+        "queryMethods" : [
+            "a.b.c"
+        ]
+    }
+
+}

@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: antipatterns
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:9000/oauth2/jwks
+  datasource:
+    username: root
+    password: example
+    url: jdbc:postgresql://localhost:5432/antipatterns
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    properties:
+      hibernate:
+        ddl-auto: create
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation: true

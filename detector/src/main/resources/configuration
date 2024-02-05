@@ -1,0 +1,87 @@
+{
+    "diConfiguration" :{
+          "injectionAnnotations":[
+               {
+                 "fullyQualifiedName" : "javax.inject.Inject"
+               },
+               {
+                 "fullyQualifiedName" : "org.springframework.beans.factory.annotation.Autowired",
+                 "coupledToFramework" : true
+               }
+           ],
+          "maxNumberOfInjections":5,
+          "maxProducerMethodComplexity":2,
+          "producerAnnotations":[
+              {
+                 "fullyQualifiedName":"org.springframework.context.annotation.Bean"
+              }
+           ],
+           "directContainerCallMethods":[
+                "org.springframework.beans.factory.BeanFactory.getBean"
+           ]
+   },
+    "mockingConfiguration" : {
+        "exceptions" : [
+            "java.io.IOException"
+        ],
+        "mockingMethods" : [
+                    {
+                        "fullyQualifiedName" : "org.mockito.Mockito.mockStatic",
+                        "argumentType" : "CLASS",
+                        "argumentHasToBeFinal" : false
+                    },
+                    {
+                        "fullyQualifiedName" : "org.mockito.Mockito.mock",
+                        "argumentType" : "CLASS"
+                    },
+                    {
+                        "fullyQualifiedName" : "org.powermock.api.mockito.PowerMockito.mockStatic",
+                        "argumentType" : "CLASS",
+                        "argumentHasToBeFinal" : false
+                    },
+                    {
+                        "fullyQualifiedName" : "org.powermock.api.mockito.PowerMockito.whenNew",
+                        "argumentType" : "CLASS",
+                        "argumentHasToBeFinal" : false
+                    },
+                    {
+                        "fullyQualifiedName" : "org.mockito.Mockito.when",
+                        "argumentType" : "METHOD_CALL"
+                    }
+        ]
+    },
+    "securityConfiguration" : {
+        "sensitiveInformationRegex" : "(password:*)|(?<=user)(.*)(?=:)",
+        "configurationFileRegex" : "(?<!target\\\\classes\\\\)(application.yml|application.properties)",
+        "tokenLifetimeSettings" : {
+            "maxTokenLifetime" : 2,
+            "unit" : "HOURS"
+        },
+        "encryptionAlgorithms" : [
+            {
+                "name" : "org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptPasswordEncoder",
+                "defaultStrength" : 10,
+                "strengthRequired" : 14
+            }
+        ],
+        "jwtSigningMethods": [
+            "io.jsonwebtoken.JwtBuilder.signWith"
+        ],
+        "unsecureCommunicationRegexes" : [
+            "(http:\/\/)"
+        ]
+    },
+    "serviceLayerConfiguration" : {
+        "minServiceMethods" : 4,
+        "maxServiceMethods" : 8,
+        "serviceAnnotations" : [
+            "org.springframework.stereotype.Service"
+        ]
+    },
+    "persistenceConfiguration" : {
+        "nPlusOneQueryRegex" : "(?<=from\\s)\\w+\\s\\w+\\b(?!\\sjoin fetch)",
+        "queryMethods" : [
+            "jakarta.persistence.EntityManager.createQuery"
+        ]
+    }
+}
