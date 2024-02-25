@@ -1,6 +1,7 @@
 package cz.muni.jena.issue.detectors.compilation_unit.service_layer;
 
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.nodeTypes.modifiers.NodeWithPublicModifier;
 import com.github.javaparser.resolution.declarations.ResolvedAnnotationDeclaration;
 import cz.muni.jena.configuration.Configuration;
 import cz.muni.jena.configuration.service_layer.ServiceLayerConfiguration;
@@ -47,7 +48,10 @@ public class InappropriateServiceSizeDetector implements SpecificIssueDetector
         {
             return Stream.of();
         }
-        int methodCount = classOrInterfaceDeclaration.getMethods().size();
+        long methodCount = classOrInterfaceDeclaration.getMethods()
+                .stream()
+                .filter(NodeWithPublicModifier::isPublic)
+                .count();
         if (methodCount > maxServiceMethods)
         {
             return Stream.of(Issue.fromClass(IssueType.MULTI_SERVICE, classOrInterfaceDeclaration));

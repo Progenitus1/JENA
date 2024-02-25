@@ -40,20 +40,21 @@ public class MultipleFormsOfInjectionDetector implements DIIssueDetector
 
         Stream<Map.Entry<ResolvedFieldDec, Integer>> fieldsInjectedInCallables =
                 Stream.<CallableDeclaration<? extends CallableDeclaration<?>>>concat(
-                        classOrInterfaceDeclaration.getConstructors().stream(),
-                        classOrInterfaceDeclaration.getMethods().stream()
-                )
-                .map(callableDeclaration -> new CallableDec<>(callableDeclaration, injectionAnnotations))
-                .filter(CallableDec::isInjectionCallable)
-                .flatMap(
-                        callableDec -> callableDec
-                                .findInjectedFields()
-                                .map(Map.Entry::getValue)
-                                .map(ResolvedFieldDec::new)
-                                .map(field -> Map.entry(field, 1))
-                );
+                                classOrInterfaceDeclaration.getConstructors().stream(),
+                                classOrInterfaceDeclaration.getMethods().stream()
+                        )
+                        .map(callableDeclaration -> new CallableDec<>(callableDeclaration, injectionAnnotations))
+                        .filter(CallableDec::isInjectionCallable)
+                        .flatMap(
+                                callableDec -> callableDec
+                                        .findInjectedFields()
+                                        .map(Map.Entry::getValue)
+                                        .map(ResolvedFieldDec::new)
+                                        .map(field -> Map.entry(field, 1))
+                        );
 
-        Map<ResolvedFieldDec, Integer> numberOfInjectionsOfField = Stream.concat(fieldsInjectedInCallables, fieldsWithFieldInjection)
+        Map<ResolvedFieldDec, Integer> numberOfInjectionsOfField = Stream.concat(fieldsInjectedInCallables,
+                                                                                 fieldsWithFieldInjection)
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue,
@@ -66,12 +67,11 @@ public class MultipleFormsOfInjectionDetector implements DIIssueDetector
                 .map(ResolvedFieldDec::resolvedFieldDeclaration)
                 .map(resolvedFieldDeclaration -> resolvedFieldDeclaration.toAst(FieldDeclaration.class))
                 .flatMap(Optional::stream)
-                .map(
-                        fieldDeclaration -> Issue.fromNodeWithRange(
-                                fieldDeclaration,
-                                ISSUE_TYPE,
-                                classOrInterfaceDeclaration
-                        ));
+                .map(fieldDeclaration -> Issue.fromNodeWithRange(
+                        fieldDeclaration,
+                        ISSUE_TYPE,
+                        classOrInterfaceDeclaration
+                ));
     }
 
     @Override

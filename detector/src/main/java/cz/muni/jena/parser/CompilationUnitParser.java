@@ -6,6 +6,7 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.resolution.TypeSolver;
 import com.github.javaparser.symbolsolver.JavaSymbolSolver;
+import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
 import com.github.javaparser.symbolsolver.utils.SymbolSolverCollectionStrategy;
 import com.github.javaparser.utils.ProjectRoot;
 import com.github.javaparser.utils.SourceRoot;
@@ -20,12 +21,12 @@ import java.util.function.Supplier;
 public class CompilationUnitParser
 {
     private final Path path;
-    private final Supplier<TypeSolver> typeSolverSupplier;
+    private final TypeSolver typeSolver;
 
-    public CompilationUnitParser(Path path, Supplier<TypeSolver> typeSolverSupplier)
+    public CompilationUnitParser(Path path, Supplier<List<TypeSolver>> typeSolvers)
     {
         this.path = path;
-        this.typeSolverSupplier = typeSolverSupplier;
+        this.typeSolver = new CombinedTypeSolver(typeSolvers.get());
     }
 
     public CompilationUnitParser(String path)
@@ -41,7 +42,7 @@ public class CompilationUnitParser
     public List<CompilationUnit> parseCompilationUnits()
     {
         ParserConfiguration parserConfig = new ParserConfiguration();
-        JavaSymbolSolver symbolResolver = new JavaSymbolSolver(typeSolverSupplier.get());
+        JavaSymbolSolver symbolResolver = new JavaSymbolSolver(typeSolver);
         parserConfig.setSymbolResolver(symbolResolver);
         ProjectRoot projectRoot = new SymbolSolverCollectionStrategy(parserConfig).collect(path);
 
